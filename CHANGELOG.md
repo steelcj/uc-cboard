@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-08-06
+
+- tested build added local cache for remote clone if build fails to save bandwidth
+
 ## [0.1.1] - 2026-08-06
 
 ### Added
