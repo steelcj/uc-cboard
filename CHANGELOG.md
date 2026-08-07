@@ -1,5 +1,18 @@
 # Changelog
 
+## Universalcake project uc-cboard CHANGELOG STARTS HERE
+
+## [Unreleased]
+
+## [0.1.1] - 2026-08-06
+
+### Added
+
+- file fairy changes added
+- added VERSION file
+
+## ORIGINAL CHANGELOG STARTS HERE
+
 ## 1.7.1 (23/12/2020)
 
 #### Bug Fixes:
