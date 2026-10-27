@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- `build-release.py` no longer stops with `NameError: name 'log' is not defined` when the scratch clone is already at the pinned commit
+
 ## [0.2.0] - 2026-10-27
 
 ### Added

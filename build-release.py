@@ -50,6 +50,10 @@ DIST_DIR = Path("dist")
 BUILD_ENV_EXTRA = {"NODE_OPTIONS": "--max-old-space-size=4096"}
 
 
+def log(msg: str) -> None:
+    print(f"[BUILD] {msg}")
+
+
 def fail(msg: str) -> None:
     print(f"[BUILD ERROR] {msg}", file=sys.stderr)
     sys.exit(1)
