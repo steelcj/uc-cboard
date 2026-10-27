@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-27
+
 ### Added
 
 - local security scan that runs in a throwaway Incus container or VM, `make sast` (ESLint security rules, Opengrep custom rules, OSV-Scanner, Gitleaks), reports in `build-log/sast/`
