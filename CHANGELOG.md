@@ -4,6 +4,18 @@
 
 ## [Unreleased]
 
+### Added
+
+- local security scan that runs in a throwaway Incus container or VM, `make sast` (ESLint security rules, Opengrep custom rules, OSV-Scanner, Gitleaks), reports in `build-log/sast/`
+- guide: Local Security Scan With Incus
+- gitleaks config that skips test fixtures, and a scan summary that tells findings apart from tool errors
+- proposal: Minimizing Network Bandwidth for Local Testing
+- guide: Manual Testing With Incus
+
+### Removed
+
+- GitHub CodeQL workflow (`.github/workflows/codeql-analysis.yml`), replaced by the local scan
+
 ## [0.1.2] - 2026-08-06
 
 - tested build added local cache for remote clone if build fails to save bandwidth

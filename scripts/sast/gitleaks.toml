@@ -1,0 +1,12 @@
+# Gitleaks config used by scripts/sast/inside.sh.
+# Keeps the default rules and skips test fixtures, which hold fake tokens.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Test fixtures with fake credentials"
+paths = [
+  '''(^|/)__mocks__/''',
+  '''(^|/)__tests__/''',
+  '''\.test\.[jt]sx?$''',
+]

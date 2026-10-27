@@ -1,0 +1,56 @@
+# Project-specific Opengrep rules, used by scripts/sast/inside.sh.
+# Add rules here the way you would add custom CodeQL queries.
+# Syntax: https://github.com/opengrep/opengrep (Semgrep-compatible rule format)
+rules:
+  - id: react-dangerously-set-inner-html
+    languages: [javascript, typescript]
+    severity: WARNING
+    message: >-
+      dangerouslySetInnerHTML renders raw HTML. Make sure the value cannot
+      contain user or remote input, or sanitise it first.
+    pattern-either:
+      - pattern: <$EL dangerouslySetInnerHTML={$X} />
+      - pattern: '{dangerouslySetInnerHTML: $X}'
+
+  - id: secret-in-web-storage
+    languages: [javascript, typescript]
+    severity: WARNING
+    message: >-
+      A value that looks like a credential is written to browser storage,
+      where any script on the page can read it.
+    patterns:
+      - pattern-either:
+          - pattern: localStorage.setItem($KEY, $VALUE)
+          - pattern: sessionStorage.setItem($KEY, $VALUE)
+          - pattern: window.localStorage.setItem($KEY, $VALUE)
+          - pattern: window.sessionStorage.setItem($KEY, $VALUE)
+      - metavariable-regex:
+          metavariable: $KEY
+          regex: (?i).*(token|password|passwd|secret|api[_-]?key).*
+
+  - id: post-message-wildcard-origin
+    languages: [javascript, typescript]
+    severity: WARNING
+    message: >-
+      postMessage with target origin "*" sends data to any page that holds
+      a reference to this window. Name the expected origin instead.
+    pattern: $WIN.postMessage($MSG, "*", ...)
+
+  - id: message-listener-without-origin-check
+    languages: [javascript, typescript]
+    severity: WARNING
+    message: >-
+      This message event handler never checks event.origin, so any page
+      can send it messages.
+    patterns:
+      - pattern: $W.addEventListener("message", $HANDLER, ...)
+      - metavariable-pattern:
+          metavariable: $HANDLER
+          patterns:
+            - pattern-either:
+                - pattern: function ($E) { ... }
+                - pattern: ($E) => { ... }
+            - pattern-not: |
+                function ($E) { ... if (<... $E.origin ...>) { ... } ... }
+            - pattern-not: |
+                ($E) => { ... if (<... $E.origin ...>) { ... } ... }
